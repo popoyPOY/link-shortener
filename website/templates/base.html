@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css' )}}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,800&display=swap" rel="stylesheet">
+     <title>{% block title %}Link Shortener{% endblock %}</title>
+</head>
+<body>
+     <div class="header">
+          <nav>
+               <h1><a href="/" class="logo">Shorten Link</a></h1>
+               <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+               </ul>
+          </nav>
+
+          <div class="info">
+               {%block content %} {% endblock %}
+          </div>
+
+          <div class="text-box">
+               {% block another_content%}
+               {% endblock %}
+
+               {% with messages = get_flashed_messages(with_categories=true) %}
+
+               {% if messages %}
+               {% for category, message in messages %}
+               {% if category == 'error'%}
+               <p class="error">{{ message }}</p>
+               {% else %}
+               <p><a href="{{ message }}" target="_blank" rel="noopener noreferrer"> {{ message }}</a></p>
+               {% endif %}
+
+               {% endfor %}
+
+               {% endif %}
+
+               {% endwith%}
+          </div>
+     </div>
+</body>
+</html>
